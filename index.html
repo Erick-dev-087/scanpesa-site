@@ -175,37 +175,37 @@
   }
 </script>
 <script>
-    // Theme toggle logic
-    function toggleTheme() {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light';
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.theme = 'dark';
+        // Theme toggle logic
+        function setTheme(mode) {
+                const root = document.documentElement;
+                if (mode === 'dark') {
+                        root.classList.add('dark');
+                        root.classList.remove('light');
+                        localStorage.theme = 'dark';
+                } else {
+                        root.classList.remove('dark');
+                        root.classList.add('light');
+                        localStorage.theme = 'light';
+                }
+                updateThemeIcon();
         }
-        updateThemeIcon();
-    }
 
-    function updateThemeIcon() {
-        const icon = document.getElementById('theme-icon');
-        if (icon) {
-            if (document.documentElement.classList.contains('dark')) {
-                icon.textContent = 'light_mode';
-            } else {
-                icon.textContent = 'dark_mode';
-            }
+        function toggleTheme() {
+                setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
         }
-    }
 
-    // Initialize theme based on preference or local storage
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
+        function updateThemeIcon() {
+                const icon = document.getElementById('theme-icon');
+                if (!icon) {
+                        return;
+                }
+                icon.textContent = document.documentElement.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        }
 
-    window.addEventListener('DOMContentLoaded', updateThemeIcon);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.theme;
+        setTheme(savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light'));
+        window.addEventListener('DOMContentLoaded', updateThemeIcon);
 </script>
 <style>
         .material-symbols-outlined {
@@ -254,6 +254,46 @@
                 .glow-ring {
                         box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.2), 0 0 30px rgba(0, 255, 65, 0.15);
                 }
+                .interactive-card {
+                        position: relative;
+                        transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+                }
+                .interactive-card::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        border-radius: inherit;
+                        pointer-events: none;
+                        opacity: 0;
+                        transition: opacity 300ms ease;
+                        box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.25), 0 12px 32px rgba(0, 0, 0, 0.25);
+                }
+                .interactive-card:hover {
+                        transform: translateY(-6px);
+                        border-color: rgba(0, 255, 65, 0.5);
+                }
+                .interactive-card:hover::after {
+                        opacity: 1;
+                }
+                .light .bg-background { background-color: #f6f7f2; }
+                .light .bg-surface-container-lowest { background-color: #ffffff; }
+                .light .bg-surface-container-low { background-color: #f1f4ee; }
+                .light .bg-surface-container { background-color: #e7ede4; }
+                .light .bg-surface-container-high { background-color: #dfe7dc; }
+                .light .bg-surface-container-highest { background-color: #d3dccf; }
+                .light .bg-surface-bright { background-color: #f9faf7; }
+                .light .text-on-background { color: #0f1a12; }
+                .light .text-on-surface { color: #142116; }
+                .light .text-on-surface-variant { color: #445748; }
+                .light .text-on-secondary-container { color: #2f4636; }
+                .light .text-primary-container { color: #0b8c2a; }
+                .light .bg-primary-container { background-color: #00c33a; }
+                .light .text-surface-container-lowest { color: #ffffff; }
+                .light .border-surface-container-high { border-color: #cbd6c7; }
+                .light .border-outline-variant { border-color: #c4d0c2; }
+                .light .from-surface-container-lowest { --tw-gradient-from: #ffffff; }
+                .light .via-background { --tw-gradient-stops: #ffffff, #f6f7f2, var(--tw-gradient-to, rgba(246, 247, 242, 0)); }
+                .light .to-surface-container { --tw-gradient-to: #e7ede4; }
     </style>
 </head>
 <body class="bg-background text-on-surface font-body-sm antialiased selection:bg-primary-container selection:text-surface-container-lowest transition-colors duration-300">
@@ -385,7 +425,7 @@
 </div>
 </div>
 </div>
-<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 space-y-md reveal reveal-delay-1">
+<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 space-y-md reveal reveal-delay-1 interactive-card">
 <p class="font-label-caps text-label-caps text-secondary uppercase">What ScanPesa changes</p>
 <div class="space-y-6">
 <div class="flex items-center gap-4">
@@ -421,21 +461,21 @@
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">ScanPesa sits on top of existing mobile money infrastructure, guiding each transaction through a smarter, cleaner interface.</p>
 </div>
 <div class="grid md:grid-cols-3 gap-6">
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">qr_code</span>
 </div>
 <h3 class="font-title-md text-title-md text-on-background mb-3">Merchant onboarding</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Merchants receive a unique QR code linked to their payment details without managing APIs themselves.</p>
 </div>
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1 interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">mobile_friendly</span>
 </div>
 <h3 class="font-title-md text-title-md text-on-background mb-3">Customer scan flow</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Customers scan, review, and complete payment in one smooth motion.</p>
 </div>
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2 interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">hub</span>
 </div>
@@ -444,7 +484,7 @@
 </div>
 </div>
 <div class="mt-16 grid md:grid-cols-2 gap-8 items-center">
-<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 reveal">
+<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 reveal interactive-card">
 <p class="font-label-caps text-label-caps text-secondary uppercase">Current architecture</p>
 <ul class="space-y-4 pt-4 text-on-surface-variant">
 <li class="flex items-center gap-3">
@@ -461,9 +501,9 @@ Settlement handled in organized batches.
 </li>
 </ul>
 </div>
-<div class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-8 reveal reveal-delay-1">
-<p class="font-label-caps text-label-caps text-secondary uppercase">Vision</p>
-<p class="font-body-lg text-body-lg text-on-surface-variant">ScanPesa evolves into a complete merchant payments ecosystem with dashboards, insights, routing, and loyalty features.</p>
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-8 reveal reveal-delay-1 interactive-card">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Features</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">ScanPesa offers a complete merchant payments toolkit with dashboards, insights, routing, and loyalty features.</p>
 <div class="grid grid-cols-2 gap-4 pt-6 text-on-surface-variant text-sm">
 <div class="bg-surface-container rounded-lg p-4">Merchant analytics</div>
 <div class="bg-surface-container rounded-lg p-4">Payment APIs</div>
@@ -481,21 +521,21 @@ Settlement handled in organized batches.
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Designed for busy merchants and fast-moving customers who want payments done right the first time.</p>
 </div>
 <div class="grid md:grid-cols-3 gap-8">
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
 </div>
 <h3 class="font-title-md text-title-md text-on-background mb-3">Merchants</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Onboard once, accept QR payments instantly, and reconcile sales with clear transaction logs.</p>
 </div>
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1 interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">person</span>
 </div>
 <h3 class="font-title-md text-title-md text-on-background mb-3">Customers</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Scan once, confirm, and pay. No typing, no errors, no stress.</p>
 </div>
-<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2 interactive-card">
 <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
 <span class="material-symbols-outlined" style="font-size: 28px;">monitoring</span>
 </div>
