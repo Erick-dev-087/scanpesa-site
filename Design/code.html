@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScanPesa - Payments at the speed of light</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary": "#fff8f4",
+                "surface-bright": "#3a3939",
+                "on-background": "#e5e2e1",
+                "surface-container": "#201f1f",
+                "inverse-surface": "#e5e2e1",
+                "primary-fixed": "#72ff70",
+                "secondary-fixed-dim": "#b2ceb3",
+                "on-tertiary": "#442b10",
+                "on-primary": "#003907",
+                "on-tertiary-fixed-variant": "#5d4124",
+                "on-primary-fixed": "#002203",
+                "error-container": "#93000a",
+                "on-secondary-fixed-variant": "#344c38",
+                "secondary": "#b2ceb3",
+                "outline": "#84967e",
+                "inverse-primary": "#006e16",
+                "on-error": "#690005",
+                "inverse-on-surface": "#313030",
+                "surface-variant": "#353534",
+                "surface-dim": "#131313",
+                "on-tertiary-fixed": "#2c1701",
+                "secondary-fixed": "#cdeace",
+                "secondary-container": "#364f3a",
+                "primary-container": "#00ff41",
+                "outline-variant": "#3b4b37",
+                "on-secondary-fixed": "#08200f",
+                "error": "#ffb4ab",
+                "on-primary-container": "#007117",
+                "on-surface-variant": "#b9ccb2",
+                "tertiary-fixed-dim": "#e7bf99",
+                "on-surface": "#e5e2e1",
+                "surface": "#131313",
+                "primary-fixed-dim": "#00e639",
+                "primary": "#ebffe2",
+                "on-tertiary-container": "#7a5b3c",
+                "on-secondary-container": "#a4c0a5",
+                "surface-tint": "#00e639",
+                "surface-container-highest": "#353534",
+                "background": "#131313",
+                "surface-container-lowest": "#0e0e0e",
+                "tertiary-container": "#ffd5ae",
+                "on-primary-fixed-variant": "#00530e",
+                "surface-container-low": "#1c1b1b",
+                "on-error-container": "#ffdad6",
+                "tertiary-fixed": "#ffdcbd",
+                "surface-container-high": "#2a2a2a",
+                "on-secondary": "#1e3623"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "margin-desktop": "64px",
+                "xl": "48px",
+                "md": "16px",
+                "base": "8px",
+                "sm": "8px",
+                "lg": "24px",
+                "gutter": "24px",
+                "margin-mobile": "16px",
+                "xs": "4px"
+        },
+        "fontFamily": {
+                "label-caps": [
+                        "Manrope"
+                ],
+                "mono-data": [
+                        "JetBrains Mono"
+                ],
+                "headline-lg": [
+                        "Space Grotesk"
+                ],
+                "headline-lg-mobile": [
+                        "Space Grotesk"
+                ],
+                "title-md": [
+                        "Space Grotesk"
+                ],
+                "body-sm": [
+                        "Manrope"
+                ],
+                "headline-xl": [
+                        "Space Grotesk"
+                ],
+                "body-lg": [
+                        "Manrope"
+                ]
+        },
+        "fontSize": {
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.08em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "mono-data": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "title-md": [
+                        "20px",
+                        {
+                                "lineHeight": "1.4",
+                                "letterSpacing": "0",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<script>
+    // Theme toggle logic
+    function toggleTheme() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+        updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+        const icon = document.getElementById('theme-icon');
+        if (icon) {
+            if (document.documentElement.classList.contains('dark')) {
+                icon.textContent = 'light_mode';
+            } else {
+                icon.textContent = 'dark_mode';
+            }
+        }
+    }
+
+    // Initialize theme based on preference or local storage
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    window.addEventListener('DOMContentLoaded', updateThemeIcon);
+</script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Scan Animation */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            50% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+        .scan-line {
+            animation: scanline 3s linear infinite;
+        }
+        
+        /* Ambient Shadow for Level 1 Cards */
+        .shadow-ambient {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.04);
+        }
+        
+                .pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .8; transform: scale(1.05); }
+        }
+                .reveal {
+                        opacity: 0;
+                        transform: translateY(24px);
+                        transition: opacity 700ms ease, transform 700ms ease;
+                }
+                .reveal.is-visible {
+                        opacity: 1;
+                        transform: translateY(0);
+                }
+                .reveal-delay-1 { transition-delay: 120ms; }
+                .reveal-delay-2 { transition-delay: 240ms; }
+                .reveal-delay-3 { transition-delay: 360ms; }
+                .scan-grid {
+                        background-image: linear-gradient(rgba(0, 255, 65, 0.08) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(0, 255, 65, 0.08) 1px, transparent 1px);
+                        background-size: 32px 32px;
+                }
+                .glow-ring {
+                        box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.2), 0 0 30px rgba(0, 255, 65, 0.15);
+                }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-sm antialiased selection:bg-primary-container selection:text-surface-container-lowest transition-colors duration-300">
+<div class="fixed top-0 left-0 h-1 bg-primary-container z-50" id="scroll-progress"></div>
+<header class="sticky top-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-container-high transition-colors duration-300">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<img alt="ScanPesa Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDGmI7yd8lgAlYzdtnPJ0us0yDWL6Ei3gx3IDZVqyf5Y92ZwwWpBu33qhw5NbHORsAprpXKhvzgZn2gXTBtCMKOsxqVst5UKRc2wvKhSVGHhaHoFKkCsqs9rS_cMBVu-AO0ezdITsDoJ3TgdcF2StvR0Ppkyenaam4sSPERmhSXfvBXTxSG27W7u8qjDp4bQ1aaN7sOp_kWDRKdJJ5b-3ECuJ1XiB7une8fV2p41khgtDlnPeDegdGvGfUqfCt9Kn0kUDvhneXN9FY"/>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-secondary font-body-sm hover:text-primary-container transition-colors duration-200" href="#overview">Overview</a>
+<a class="text-secondary font-body-sm hover:text-primary-container transition-colors duration-200" href="#problems">Problems</a>
+<a class="text-secondary font-body-sm hover:text-primary-container transition-colors duration-200" href="#how">How It Works</a>
+<a class="text-secondary font-body-sm hover:text-primary-container transition-colors duration-200" href="#services">Services</a>
+<a class="text-secondary font-body-sm hover:text-primary-container transition-colors duration-200" href="#waitlist">Waitlist</a>
+</nav>
+<div class="flex items-center gap-3">
+<button aria-label="Toggle Theme" class="p-2 rounded-full hover:bg-surface-container transition-colors text-secondary" onclick="toggleTheme()">
+<span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+</button>
+<a class="bg-primary-container text-surface-container-lowest px-5 py-2 rounded-lg font-body-sm font-medium hover:opacity-90 transition-opacity" data-cta="waitlist" href="#waitlist">Get Started</a>
+</div>
+</div>
+</header>
+<main>
+<section class="relative pt-24 pb-32 overflow-hidden scan-grid" id="overview">
+<div class="absolute inset-0 bg-gradient-to-b from-surface-container-lowest via-background to-surface-container"></div>
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-12 items-center relative z-10">
+<div class="space-y-md reveal">
+<p class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.2em]">Scan. Confirm. Pay.</p>
+<h1 class="font-headline-xl text-headline-xl text-on-background tracking-tight">
+                                                Faster QR payments with zero typing errors.
+                                        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                                                ScanPesa is a QR-first payment experience that reduces manual input, prevents costly mistakes, and moves customers through checkout in seconds.
+                                        </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a class="bg-primary-container text-surface-container-lowest px-8 py-3 rounded-lg font-body-sm font-medium hover:bg-opacity-90 transition-all shadow-ambient" data-cta="waitlist" href="#waitlist">
+                                                        Get Started
+                                                </a>
+<a class="bg-transparent text-secondary border border-outline-variant px-8 py-3 rounded-lg font-body-sm font-medium hover:bg-surface-variant transition-all" href="#how">
+                                                        See the flow
+                                                </a>
+</div>
+<div class="flex flex-wrap gap-6 pt-8 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">bolt</span>
+<span>Faster checkout</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">verified</span>
+<span>Fewer payment errors</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">insights</span>
+<span>Instant transaction insight</span>
+</div>
+</div>
+</div>
+<div class="relative flex justify-center items-center z-10 h-[520px] reveal reveal-delay-1">
+<div class="absolute inset-8 bg-gradient-to-tr from-tertiary-fixed to-surface-bright rounded-full blur-3xl opacity-60"></div>
+<div class="relative w-80 h-[420px] bg-surface-container-lowest rounded-xl border border-surface-container-high p-8 flex flex-col items-center justify-center overflow-hidden glow-ring">
+<div class="absolute top-6 left-6 w-10 h-10 border-t-4 border-l-4 border-primary-container rounded-tl-lg pulse-soft"></div>
+<div class="absolute top-6 right-6 w-10 h-10 border-t-4 border-r-4 border-primary-container rounded-tr-lg pulse-soft"></div>
+<div class="absolute bottom-6 left-6 w-10 h-10 border-b-4 border-l-4 border-primary-container rounded-bl-lg pulse-soft"></div>
+<div class="absolute bottom-6 right-6 w-10 h-10 border-b-4 border-r-4 border-primary-container rounded-br-lg pulse-soft"></div>
+<div class="grid grid-cols-5 gap-2 w-36 h-36 opacity-30">
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-on-surface rounded-sm"></div>
+<div class="bg-transparent border border-on-surface rounded-sm"></div>
+</div>
+<div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent top-1/2 scan-line shadow-[0_0_10px_rgba(0,255,65,0.8)]"></div>
+<div class="mt-10 text-center">
+<p class="font-mono-data text-mono-data text-secondary-container">Align QR code to scan</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-container-lowest" id="problems">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid md:grid-cols-2 gap-12 items-start">
+<div class="space-y-md reveal">
+<h2 class="font-headline-lg text-headline-lg text-on-background">The problem with manual mobile money payments.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Till numbers, Paybills, and account references slow down busy counters and introduce errors. ScanPesa removes the friction by letting the QR code carry the details.</p>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container">close</span>
+<div>
+<p class="font-title-md text-title-md text-on-background">Manual entry mistakes</p>
+<p class="text-on-surface-variant">Incorrect numbers lead to failed transactions or payments sent to the wrong merchant.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container">schedule</span>
+<div>
+<p class="font-title-md text-title-md text-on-background">Slow queues</p>
+<p class="text-on-surface-variant">Typing details takes time, especially when customers are unfamiliar with payment steps.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container">sync_problem</span>
+<div>
+<p class="font-title-md text-title-md text-on-background">Unclear tracking</p>
+<p class="text-on-surface-variant">Merchants and customers struggle to confirm which transaction matches which purchase.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 space-y-md reveal reveal-delay-1">
+<p class="font-label-caps text-label-caps text-secondary uppercase">What ScanPesa changes</p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">1</div>
+<div>
+<p class="font-title-md text-title-md text-on-background">Scan</p>
+<p class="text-on-surface-variant">The QR code pulls merchant details instantly.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">2</div>
+<div>
+<p class="font-title-md text-title-md text-on-background">Confirm</p>
+<p class="text-on-surface-variant">Customer verifies the merchant and amount with zero typing.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">3</div>
+<div>
+<p class="font-title-md text-title-md text-on-background">Pay</p>
+<p class="text-on-surface-variant">Mobile money flow launches with prefilled fields.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-background" id="how">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16 reveal">
+<h2 class="font-headline-lg text-headline-lg text-on-background">How ScanPesa works today.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">ScanPesa sits on top of existing mobile money infrastructure, guiding each transaction through a smarter, cleaner interface.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">qr_code</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Merchant onboarding</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Merchants receive a unique QR code linked to their payment details without managing APIs themselves.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">mobile_friendly</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Customer scan flow</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Customers scan, review, and complete payment in one smooth motion.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">hub</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Centralized settlement</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Payments are tracked centrally so merchants can reconcile and settle with clarity.</p>
+</div>
+</div>
+<div class="mt-16 grid md:grid-cols-2 gap-8 items-center">
+<div class="bg-surface-container rounded-xl border border-surface-container-high p-8 reveal">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Current architecture</p>
+<ul class="space-y-4 pt-4 text-on-surface-variant">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-sm">bolt</span>
+Central payment routing for clean analytics.
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-sm">account_tree</span>
+Merchants onboard without direct Daraja integration.
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-sm">sync_alt</span>
+Settlement handled in organized batches.
+</li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-8 reveal reveal-delay-1">
+<p class="font-label-caps text-label-caps text-secondary uppercase">Vision</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">ScanPesa evolves into a complete merchant payments ecosystem with dashboards, insights, routing, and loyalty features.</p>
+<div class="grid grid-cols-2 gap-4 pt-6 text-on-surface-variant text-sm">
+<div class="bg-surface-container rounded-lg p-4">Merchant analytics</div>
+<div class="bg-surface-container rounded-lg p-4">Payment APIs</div>
+<div class="bg-surface-container rounded-lg p-4">Smart routing</div>
+<div class="bg-surface-container rounded-lg p-4">Customer engagement</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-container-lowest" id="services">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16 reveal">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Who ScanPesa serves.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Designed for busy merchants and fast-moving customers who want payments done right the first time.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">storefront</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Merchants</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Onboard once, accept QR payments instantly, and reconcile sales with clear transaction logs.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-1">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">person</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Customers</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scan once, confirm, and pay. No typing, no errors, no stress.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-surface-container-high reveal reveal-delay-2">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-6 text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 28px;">monitoring</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-3">Platform teams</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Get centralized analytics, dispute visibility, and faster rollout for new merchants.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-background" id="waitlist">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div class="space-y-md reveal">
+<p class="font-label-caps text-label-caps text-primary-container uppercase">Join the waitlist</p>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Be the first to experience ScanPesa.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Tell us what you need most and help shape the fastest way to pay. We track waitlist clicks and signups to learn where the product should focus next.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-8 reveal reveal-delay-1">
+<form class="space-y-4" id="waitlist-form">
+<div>
+<label class="block font-body-sm text-on-surface-variant mb-2" for="full_name">Full name</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container" id="full_name" name="full_name" placeholder="Your name" required="" type="text"/>
+</div>
+<div>
+<label class="block font-body-sm text-on-surface-variant mb-2" for="email">Email address</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container" id="email" name="email" placeholder="you@company.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-body-sm text-on-surface-variant mb-2" for="role">I am a</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container" id="role" name="role" required="">
+<option value="">Select a role</option>
+<option value="merchant">Merchant</option>
+<option value="customer">Customer</option>
+<option value="partner">Partner</option>
+</select>
+</div>
+<div>
+<label class="block font-body-sm text-on-surface-variant mb-2" for="pain_point">Biggest payment pain</label>
+<textarea class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container" id="pain_point" name="pain_point" placeholder="Tell us what slows payments down today" rows="3"></textarea>
+</div>
+<button class="w-full bg-primary-container text-surface-container-lowest px-6 py-3 rounded-lg font-body-sm font-medium hover:bg-opacity-90 transition-all" type="submit">Join the waitlist</button>
+<p class="text-sm text-on-surface-variant" id="waitlist-message"></p>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full rounded-t-xl bg-surface-container border-t border-outline-variant transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex flex-col gap-2">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">ScanPesa</div>
+<p class="text-on-secondary-container font-body-sm text-body-sm">© 2026 ScanPesa. QR payments without the errors.</p>
+</div>
+<nav class="flex flex-wrap gap-6 items-center">
+<a class="text-on-secondary-container font-body-sm text-body-sm hover:text-primary transition-all focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="#overview">Overview</a>
+<a class="text-on-secondary-container font-body-sm text-body-sm hover:text-primary transition-all focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="#services">Services</a>
+<a class="text-on-secondary-container font-body-sm text-body-sm hover:text-primary transition-all focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="#waitlist">Waitlist</a>
+<a class="text-on-secondary-container font-body-sm text-body-sm hover:text-primary transition-all focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+<script>
+        const progressBar = document.getElementById('scroll-progress');
+        const waitlistMessage = document.getElementById('waitlist-message');
+        const waitlistForm = document.getElementById('waitlist-form');
+        const waitlistSubmitButton = waitlistForm.querySelector('button[type="submit"]');
+        const waitlistEndpoint = 'https://script.google.com/macros/s/AKfycbyx7Oj8shPHbOfQeuyAp952NFkYHKz21HzHkjWmZkM3rOIz8rasWpgSiJ4UrwYQFJuGeQ/exec';
+
+        function updateScrollProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = `${progress}%`;
+        }
+
+        function postWaitlistEvent(payload) {
+                const body = new URLSearchParams(payload);
+                return fetch(waitlistEndpoint, {
+                        method: 'POST',
+                        body,
+                        keepalive: true
+                });
+        }
+
+        document.querySelectorAll('[data-cta="waitlist"]').forEach((cta) => {
+                cta.addEventListener('click', () => {
+                        postWaitlistEvent({
+                                event: 'cta_click',
+                                source_page: window.location.href,
+                                cta_label: cta.textContent.trim()
+                        }).catch(() => {});
+                });
+        });
+
+        waitlistForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                waitlistMessage.textContent = '';
+                waitlistSubmitButton.disabled = true;
+                waitlistSubmitButton.textContent = 'Submitting...';
+
+                const formData = new FormData(waitlistForm);
+                formData.set('source_page', window.location.href);
+
+                try {
+                        const response = await postWaitlistEvent(Object.fromEntries(formData.entries()));
+                        const result = await response.json();
+
+                        if (result.status === 'success') {
+                                waitlistMessage.textContent = 'Thanks for joining. We will reach out with early access details.';
+                                waitlistForm.reset();
+                        } else {
+                                waitlistMessage.textContent = 'Something went wrong. Please try again in a moment.';
+                        }
+                } catch (error) {
+                        waitlistMessage.textContent = 'Unable to submit right now. Please try again later.';
+                } finally {
+                        waitlistSubmitButton.disabled = false;
+                        waitlistSubmitButton.textContent = 'Join the waitlist';
+                }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                                observer.unobserve(entry.target);
+                        }
+                });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        window.addEventListener('scroll', updateScrollProgress);
+        window.addEventListener('load', () => {
+                updateScrollProgress();
+        });
+</script>
+</body></html>
